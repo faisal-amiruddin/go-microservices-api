@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/faisal-amiruddin/go-microservices-api/service"
 	"github.com/gorilla/mux"
 )
 
@@ -15,15 +16,21 @@ type Customer struct {
 	Zipcode	string	`json:"zip_code" xml:"zipcode"`
 }
 
+type CustomerHandlers struct {
+	service service.CustomerService
+}
+
 func greet(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprint(w, "Hello World!")
 }
 
-func getAllCustomer(w http.ResponseWriter, r *http.Request) {
-	customers := []Customer{
-		{"Naruto", "Konoha", "12345"},
-		{"Sasuke", "konoha", "12345"},
-	}
+func (ch *CustomerHandlers) getAllCustomer(w http.ResponseWriter, r *http.Request) {
+	// customers := []Customer{
+	// 	{"Naruto", "Konoha", "12345"},
+	// 	{"Sasuke", "konoha", "12345"},
+	// }
+
+	customers, _ := ch.service.GetAllCustomer()
 
 	if r.Header.Get("Content-Type") == "application/xml" {
 		w.Header().Add("Content-Type", "application/xml")
