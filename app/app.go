@@ -23,7 +23,7 @@ func Start() {
 
 	router.HandleFunc("/customers", ch.getAllCustomer).Methods(http.MethodGet)
 	router.HandleFunc("/customers", createCustomer).Methods(http.MethodPost)
-	router.HandleFunc("/customers/{customer_id:[0-9]+}", getCustomer).Methods(http.MethodGet)
+	router.HandleFunc("/customers/{customer_id:[0-9]+}", ch.getCustomer).Methods(http.MethodGet)
 
 	//start server
 	fmt.Println("Server running at http://localhost:8000")
